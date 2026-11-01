@@ -1,7 +1,7 @@
 package handler
 
 import (
-	"go_tutor/internal/handler"
+
 	"go_tutor/internal/model"
 	"go_tutor/internal/service"
 	"net/http"

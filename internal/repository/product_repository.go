@@ -1,7 +1,7 @@
 package repository
 
 import (
-	"container/list"
+
 	"errors"
 	"go_tutor/internal/model"
 )
@@ -39,6 +39,14 @@ func (r *memoryRepository) FindAll() ([]model.Product, error) {
 		list = append(list, p)
 	}
 	return list, nil
+}
+
+func (r *memoryRepository) FindByID(id uint) (*model.Product, error) {
+	p, exists := r.products[id]
+	if !exists {
+		return nil, errors.New("Product not found")
+	}
+	return &p, nil
 }
 
 func (r *memoryRepository) Update(p *model.Product) error {

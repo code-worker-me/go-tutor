@@ -17,6 +17,10 @@ type productService struct {
 	repo repository.ProductRepository
 }
 
+func NewProductService(repo repository.ProductRepository) ProductService {
+	return &productService{repo: repo}
+}
+
 func (s *productService) CreateProduct(p *model.Product) error {
 	return s.repo.Create(p)
 }
