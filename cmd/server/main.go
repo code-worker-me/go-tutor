@@ -20,6 +20,11 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// @title Product REST API
+// @version 1.0
+// @description A production-grade CRUD REST API built with Gin and Go.
+// @host localhost:8080
+// @BasePath /api/v1
 func main() {
 	gin.SetMode(gin.DebugMode)
 
