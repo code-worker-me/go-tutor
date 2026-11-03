@@ -1,0 +1,50 @@
+definitions:
+  model.CreateProductRequest:
+    properties:
+      name:
+        example: Kopi Kapal Api
+        type: string
+      price:
+        example: 1500
+        type: number
+      stock:
+        example: 15
+        minimum: 0
+        type: integer
+    required:
+    - name
+    - price
+    - stock
+    type: object
+info:
+  contact: {}
+paths:
+  /api/v1/products:
+    post:
+      consumes:
+      - application/json
+      description: Menambah produk.
+      parameters:
+      - description: Product Payload
+        in: body
+        name: product
+        required: true
+        schema:
+          $ref: '#/definitions/model.CreateProductRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Buat produk baru.
+      tags:
+      - Tambah Produk
+swagger: "2.0"

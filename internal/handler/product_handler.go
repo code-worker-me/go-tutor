@@ -28,11 +28,27 @@ func NewProductHandler(r *gin.Engine, s service.ProductService) {
 	}
 }
 
+// Create godoc
+// @Summary Buat produk baru.
+// @Description Menambah produk.
+// @Tags Tambah Produk
+// @Accept json
+// @Produce json
+// @Param product body model.CreateProductRequest true "Product Payload"
+// @Success 201 {object} map[string]interface{}
+// @Failure 400 {object} map[string]interface{}
+// @Router /api/v1/products [post]
 func (h *ProductHandler) Create(c *gin.Context) {
-	var p model.Product
-	if err := c.ShouldBindJSON(&p); err != nil {
+	var req model.CreateProductRequest
+	if err := c.ShouldBindJSON(&req); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
+	}
+
+	p := model.Product{
+		Name: req.Name,
+		Price: req.Price,
+		Stock: req.Stock,
 	}
 
 	if err := h.service.CreateProduct(&p); err != nil {
@@ -42,6 +58,7 @@ func (h *ProductHandler) Create(c *gin.Context) {
 
 	c.JSON(http.StatusCreated, gin.H{"message": "success", "data": p})
 }
+
 
 func (h *ProductHandler) GetAll(c *gin.Context) {
 	products, err := h.service.GetAllProducts()
