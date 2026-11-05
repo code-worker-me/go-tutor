@@ -82,6 +82,17 @@ func (h *ProductHandler) GetAll(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"message": "success", "data": products})
 }
 
+// Get by ID
+// @Summary Ambil produk berdasarkan ID
+// @Description Get product by ID
+// @Tags Product
+// @Accept json
+// @Produce json
+// @Param id path int true "Product ID"
+// @Success 200 {object} map[string]interface{}
+// @Failure 400 {object} map[string]interface{}
+// @Failure 404 {object} map[string]interface{}
+// @Router /products/{id} [get]
 func (h *ProductHandler) GetByID(c *gin.Context) {
 	idParam := c.Param("id")
 	id, err := strconv.ParseUint(idParam, 10, 32)
@@ -98,6 +109,7 @@ func (h *ProductHandler) GetByID(c *gin.Context) {
 
 	c.JSON(http.StatusOK, gin.H{"message": "success", "data": p})
 }
+
 
 func (h *ProductHandler) Update(c *gin.Context) {
 	idParam := c.Param("id")
