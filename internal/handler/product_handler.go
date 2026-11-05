@@ -35,8 +35,7 @@ func NewProductHandler(r *gin.Engine, s service.ProductService) {
 // @Accept json
 // @Produce json
 // @Param product body model.CreateProductRequest true "Product Payload"
-// @Success 201 {object} map[string]interface{}
-// @Failure 400 {object} map[string]interface{}
+// @Success 201 {object} model.ProductResponse
 // @Router /products [post]
 func (h *ProductHandler) Create(c *gin.Context) {
 	var req model.CreateProductRequest
@@ -89,9 +88,9 @@ func (h *ProductHandler) GetAll(c *gin.Context) {
 // @Accept json
 // @Produce json
 // @Param id path int true "Product ID"
-// @Success 200 {object} map[string]interface{}
-// @Failure 400 {object} map[string]interface{}
-// @Failure 404 {object} map[string]interface{}
+// @Success 200 {object} model.ProductResponse
+// @Failure 400 {object} model.ErrorResponse
+// @Failure 404 {object} model.ErrorResponse
 // @Router /products/{id} [get]
 func (h *ProductHandler) GetByID(c *gin.Context) {
 	idParam := c.Param("id")
