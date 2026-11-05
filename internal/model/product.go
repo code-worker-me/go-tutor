@@ -1,6 +1,13 @@
 package model
 
-import "time"
+import (
+	"errors"
+	"time"
+)
+
+var (
+	ErrProductNotFound = errors.New("product not found")
+)
 
 // Model utama di dalam DB
 type Product struct {
@@ -21,9 +28,9 @@ type CreateProductRequest struct {
 
 // DTO khusus untuk Request Update
 type UpdateProductRequest struct {
-	Name  string  `json:"name" example:"Mechanical Keyboard Pro"`
-	Price float64 `json:"price" example:"99.99"`
-	Stock int     `json:"stock" example:"20"`
+	Name  *string  `json:"name,omitempty" binding:"omitempty,min=2,max=100" example:"Mechanical Keyboard Pro"`
+	Price *float64 `json:"price,omitempty" binding:"omitempty,gt=0" example:"99.99"`
+	Stock *int     `json:"stock,omitempty" binding:"omitempty,gte=0" example:"20"`
 }
 
 // Response Sukses
