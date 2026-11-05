@@ -109,7 +109,18 @@ func (h *ProductHandler) GetByID(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"message": "success", "data": p})
 }
 
-
+// Update godoc
+// @Summary Update produk
+// @Description Mengubah data produk berdasarkan ID
+// @Tags Product
+// @Accept json
+// @Produce json
+// @Param id path int true "Product ID"
+// @Param product body model.UpdateProductRequest true "Update Product Payload"
+// @Success 200 {object} model.ProductResponse
+// @Failure 400 {object} model.ErrorResponse
+// @Failure 404 {object} model.ErrorResponse
+// @Router /products/{id} [put]
 func (h *ProductHandler) Update(c *gin.Context) {
 	idParam := c.Param("id")
 	id, err := strconv.ParseUint(idParam, 10, 32)
@@ -118,19 +129,18 @@ func (h *ProductHandler) Update(c *gin.Context) {
 		return
 	}
 
-	var p model.Product
-	if err := c.ShouldBindJSON(&p); err != nil {
+	var req model.UpdateProductRequest
+	if err := c.ShouldBindJSON(&req); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
-	p.ID = uint(id)
-
-	if err := h.service.UpdateProduct(&p); err != nil {
+	
+	updatedProduct, err := h.service.UpdateProduct(&req, uint(id))
+	if err != nil {
 		c.JSON(http.StatusNotFound, gin.H{"error": err.Error()})
-		return
 	}
 
-	c.JSON(http.StatusOK, gin.H{"message": "success", "data": p})
+	c.JSON(http.StatusOK, gin.H{"message": "success", "data": updatedProduct})
 }
 
 func (h *ProductHandler) Delete(c *gin.Context) {

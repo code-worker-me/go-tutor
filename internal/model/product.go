@@ -19,10 +19,17 @@ type CreateProductRequest struct {
 	Stock int     `json:"stock" binding:"required,gte=0" example:"15"`
 }
 
+// DTO khusus untuk Request Update
+type UpdateProductRequest struct {
+	Name  string  `json:"name" example:"Mechanical Keyboard Pro"`
+	Price float64 `json:"price" example:"99.99"`
+	Stock int     `json:"stock" example:"20"`
+}
+
 // Response Sukses
 type ProductResponse struct {
-	Message string `json:"message" example:"success"`
-	Data Product `json:"data"`
+	Message string  `json:"message" example:"success"`
+	Data    Product `json:"data"`
 }
 
 // Response Error
